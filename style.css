@@ -1,0 +1,603 @@
+/* =============================================
+   BIOMEDICAL INFORMATICS WEBSITE - style.css
+   ============================================= */
+
+/* --- Google Fonts Import --- */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap');
+
+/* --- CSS Variables (Theme System) --- */
+:root {
+  /* Light Mode (default) */
+  --bg-primary: #f0f6ff;
+  --bg-secondary: #ddeeff;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --text-primary: #0a1f44;
+  --text-secondary: #1a4080;
+  --accent: #0055cc;
+  --accent-glow: #2277ff;
+  --nav-bg: rgba(0, 30, 80, 0.95);
+  --nav-text: #c8e0ff;
+  --nav-hover: #ffffff;
+  --hero-overlay: rgba(0, 20, 60, 0.55);
+  --card-border: rgba(0, 100, 255, 0.2);
+  --shadow: 0 8px 32px rgba(0, 80, 200, 0.12);
+  --transition: 0.4s ease;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  --bg-primary: #050e1f;
+  --bg-secondary: #0a1a30;
+  --bg-card: rgba(10, 25, 55, 0.9);
+  --text-primary: #c8e4ff;
+  --text-secondary: #80b8ff;
+  --accent: #4499ff;
+  --accent-glow: #66bbff;
+  --nav-bg: rgba(2, 8, 20, 0.98);
+  --nav-text: #80b8ff;
+  --nav-hover: #ffffff;
+  --hero-overlay: rgba(0, 5, 20, 0.70);
+  --card-border: rgba(80, 160, 255, 0.3);
+  --shadow: 0 8px 40px rgba(0, 100, 255, 0.18);
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Exo 2', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color var(--transition), color var(--transition);
+  min-height: 100vh;
+}
+
+/* --- Navigation Bar --- */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 65px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+  transition: background var(--transition);
+}
+
+.nav-brand {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-glow);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--nav-text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-glow);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--nav-hover);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Dark Mode Toggle Button */
+#dark-mode-btn {
+  background: transparent;
+  border: 2px solid var(--accent-glow);
+  color: var(--accent-glow);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+#dark-mode-btn:hover {
+  background: var(--accent-glow);
+  color: #000;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background: var(--nav-text);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* --- Hero Section (index only) --- */
+.hero {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('Add_for_CSS.jpeg');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.75);
+  transition: filter var(--transition);
+  z-index: 0;
+}
+
+body.dark-mode .hero-bg {
+  filter: brightness(0.45);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--hero-overlay);
+  z-index: 1;
+  transition: background var(--transition);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 2rem;
+  animation: fadeInUp 1s ease both;
+}
+
+.hero-content h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 0 30px rgba(80, 160, 255, 0.6);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+#dynamic-greeting {
+  font-size: 1.15rem;
+  color: #c8e8ff;
+  margin-bottom: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+}
+
+.hero-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.9rem 2.5rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(0, 100, 255, 0.4);
+}
+
+.hero-btn:hover {
+  background: var(--accent-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px rgba(80, 160, 255, 0.6);
+}
+
+/* --- Page Hero (About / Contact) --- */
+.page-hero {
+  position: relative;
+  height: 55vh;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+}
+
+.page-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.72);
+  transition: filter var(--transition);
+  z-index: 0;
+}
+
+body.dark-mode .page-hero-bg {
+  filter: brightness(0.4);
+}
+
+.page-hero .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--hero-overlay);
+  z-index: 1;
+}
+
+.page-hero .hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 2rem;
+  animation: fadeInUp 0.9s ease both;
+}
+
+.page-hero .hero-content h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.3rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 0 30px rgba(80, 160, 255, 0.6);
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+}
+
+.page-hero .hero-content p {
+  font-size: 1rem;
+  color: #c8e8ff;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+}
+
+/* --- Main Content Area --- */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+/* --- Cards / Sections --- */
+.section-card {
+  background: var(--bg-card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+  transition: background var(--transition), border-color var(--transition), transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.section-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 100, 255, 0.18);
+}
+
+.section-card h2,
+.section-card h3,
+.section-card h4 {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.section-card h2 { font-size: 1.5rem; }
+.section-card h3 { font-size: 1.2rem; }
+.section-card h4 { font-size: 1rem; }
+
+.section-card p {
+  color: var(--text-secondary);
+  line-height: 1.75;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* --- Info Grid (index page) --- */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 3rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* --- About Page Specific --- */
+.about-intro {
+  font-size: 1.1rem;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.about-intro::first-letter {
+  font-size: 3rem;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  color: var(--accent);
+  float: left;
+  line-height: 1;
+  margin-right: 0.15em;
+  margin-top: 0.05em;
+}
+
+/* --- Contact Page / Form --- */
+.contact-info-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  border-left: 4px solid var(--accent);
+  transition: background var(--transition);
+}
+
+.contact-info-item span.label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  min-width: 80px;
+}
+
+.contact-info-item span.value {
+  color: var(--text-primary);
+  font-weight: 400;
+}
+
+/* Contact Form */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.form-group input,
+.form-group textarea {
+  background: var(--bg-secondary);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.2s, background var(--transition);
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 100, 255, 0.15);
+}
+
+.form-group textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.form-error {
+  color: #ff4444;
+  font-size: 0.8rem;
+  display: none;
+}
+
+.form-error.visible {
+  display: block;
+}
+
+.submit-btn {
+  background: var(--accent);
+  color: #fff;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  box-shadow: 0 4px 15px rgba(0, 100, 255, 0.3);
+}
+
+.submit-btn:hover {
+  background: var(--accent-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 100, 255, 0.4);
+}
+
+.form-success {
+  display: none;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 200, 100, 0.15);
+  border: 1px solid #00cc66;
+  border-radius: 8px;
+  color: #00cc66;
+  font-weight: 600;
+  text-align: center;
+}
+
+.form-success.visible {
+  display: block;
+  animation: fadeInUp 0.5s ease;
+}
+
+/* --- Footer --- */
+footer {
+  background: var(--nav-bg);
+  text-align: center;
+  padding: 1.8rem;
+  color: var(--nav-text);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  margin-top: 4rem;
+  transition: background var(--transition);
+}
+
+/* --- Animations --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeInUp 0.7s ease both;
+}
+
+/* --- Responsive / Mobile --- */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 65px;
+    left: 0;
+    right: 0;
+    background: var(--nav-bg);
+    flex-direction: column;
+    gap: 0;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(100, 160, 255, 0.15);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 0.85rem 2rem;
+    font-size: 0.95rem;
+  }
+
+  .nav-links a::after {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+
+  main {
+    padding: 2rem 1rem;
+  }
+
+  .info-grid {
+    padding: 2rem 1rem;
+  }
+}
